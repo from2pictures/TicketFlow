@@ -1,9 +1,9 @@
 package com.ticketflow.catalog.service;
 
-import com.ticketflow.contracts.events.dto.response.EventResponse;
 import com.ticketflow.catalog.entity.Event;
 import com.ticketflow.catalog.mapper.EventMapper;
 import com.ticketflow.catalog.repository.EventRepository;
+import com.ticketflow.contracts.dto.response.EventResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

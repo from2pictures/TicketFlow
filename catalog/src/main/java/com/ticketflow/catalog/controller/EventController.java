@@ -2,11 +2,13 @@ package com.ticketflow.catalog.controller;
 
 import com.ticketflow.catalog.entity.Event;
 import com.ticketflow.catalog.service.EventService;
+import com.ticketflow.contracts.dto.response.EventResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -18,8 +20,8 @@ public class EventController {
     private final EventService service;
 
     @GetMapping("/events")
-    public ResponseEntity<List<Event>> getAll() {
-        return ResponseEntity.ok(service.getAll());
+    public ResponseEntity<Page<EventResponse>> getAll(Pageable pageable) {
+        return ResponseEntity.ok(service.getAll(pageable));
     }
 
     @GetMapping("/event/{uuid}")

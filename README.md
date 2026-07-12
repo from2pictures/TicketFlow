@@ -7,7 +7,7 @@
 
 > Modern, production-ready microservices architecture for booking concert tickets. Built to demonstrate enterprise-level patterns: Event-Driven Architecture, Outbox Pattern, Circuit Breakers, and Distributed Tracing.
 
-![Architecture Diagram](./docs/architecture.png)
+[//]: # (![Architecture Diagram]&#40;./docs/architecture.png&#41;)
 
 ## 🚀 Overview
 

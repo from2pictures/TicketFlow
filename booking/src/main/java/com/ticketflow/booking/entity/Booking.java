@@ -26,7 +26,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
-@SQLDelete(sql = "UPDATE booking SET deleted_at = CURRENT_TIMESTAMP WHERE id = ? AND version = ?")
+@SQLDelete(sql = "UPDATE bookings SET deleted_at = CURRENT_TIMESTAMP WHERE id = ? AND version = ?")
 @SQLRestriction("deleted_at IS NULL")
 public class Booking {
 

@@ -10,6 +10,7 @@ import com.ticketflow.catalog.repository.VenueRepository;
 import com.ticketflow.contracts.dto.request.CreateEventRequest;
 import com.ticketflow.contracts.dto.request.UpdateEventRequest;
 import com.ticketflow.contracts.dto.response.EventResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -47,7 +48,7 @@ public class EventService {
 
     @Transactional
     @CacheEvict(value = "events", allEntries = true)
-    public EventResponse create(CreateEventRequest request) {
+    public EventResponse create(@Valid CreateEventRequest request) {
         log.info("Creating new event: {}", request.title());
 
         Venue venue = venueRepo.findById(request.venueId())

@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   # 1. База данных
   postgres:
@@ -14,13 +16,31 @@ services:
     networks:
       - enterprise_network
 
-  # 2. Kafka в режиме KRaft (Без Zookeeper!)
+  # 2. Redis (кэш и вспомогательные задачи)
+  redis:
+    image: redis:7-alpine
+    container_name: enterprise_redis
+    command: redis-server --appendonly yes --maxmemory-policy allkeys-lru
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - enterprise_network
+
+  # 3. Kafka в режиме KRaft (Без Zookeeper!)
   kafka:
     image: bitnamilegacy/kafka:3.7.0
     container_name: enterprise_kafka
     ports:
-      - "9092:9092"   # Для связи внутри docker-сети
-      - "9094:9094"   # Для связи с твоей IDE (localhost)
+      - "9092:9092"
+      - "9094:9094"
     environment:
       - KAFKA_ENABLE_KRAFT=yes
       - KAFKA_CFG_PROCESS_ROLES=broker,controller
@@ -37,7 +57,7 @@ services:
         aliases:
           - kafka
 
-  # 3. Keycloak (Identity Provider)
+  # 4. Keycloak (Identity Provider)
   keycloak:
     image: quay.io/keycloak/keycloak:26.6.4
     container_name: enterprise_keycloak
@@ -50,7 +70,7 @@ services:
     networks:
       - enterprise_network
 
-  # 4. Zipkin (Трейсинг)
+  # 5. Zipkin (Трейсинг)
   zipkin:
     image: openzipkin/zipkin
     container_name: enterprise_zipkin
@@ -61,6 +81,8 @@ services:
 
 volumes:
   postgres_data:
+    driver: local
+  redis_data:
     driver: local
 
 networks:

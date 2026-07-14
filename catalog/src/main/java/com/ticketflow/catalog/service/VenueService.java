@@ -7,6 +7,7 @@ import com.ticketflow.catalog.repository.VenueRepository;
 import com.ticketflow.contracts.dto.request.CreateVenueRequest;
 import com.ticketflow.contracts.dto.request.UpdateVenueRequest;
 import com.ticketflow.contracts.dto.response.VenueSmallResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -42,7 +43,7 @@ public class VenueService {
 
     @Transactional
     @CacheEvict(value = "venues", allEntries = true)
-    public VenueSmallResponse create(CreateVenueRequest request) {
+    public VenueSmallResponse create(@Valid CreateVenueRequest request) {
         log.info("Creating new venue: {}", request.name());
         Venue venue = mapper.toEntity(request);
         venue.setStatus("ACTIVE");

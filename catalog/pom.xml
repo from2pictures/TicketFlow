@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>catalog</artifactId>
+    <artifactId>catalog-service</artifactId>
     <name>Catalog</name>
     <description>Service for show events (Spring Boot 4)</description>
 
@@ -99,7 +99,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring.boot.version}</version>
                 <configuration>
                     <excludes>
                         <exclude>
@@ -107,7 +106,17 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                    <image>
+                        <name>ticketflow/${project.artifactId}:latest</name>
+                    </image>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

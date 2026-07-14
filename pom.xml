@@ -14,7 +14,6 @@
 
     <modules>
         <module>ticketflow-contracts</module>
-        <module>order-service</module>
         <module>catalog</module>
     </modules>
 
@@ -76,5 +75,18 @@
                 </configuration>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.13.0</version>
+                    <configuration>
+                        <release>${java.version}</release>
+                        <parameters>true</parameters>  <!-- ← Для всех модулей -->
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>

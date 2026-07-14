@@ -1,25 +1,25 @@
 spring:
   cache:
     type: redis
-    redis:
-      time-to-live: 300s
   data:
     redis:
-      host: localhost
-      port: 6379
+      # Если есть переменная SPRING_DATA_REDIS_HOST, берем её. Иначе — localhost
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
+      port: ${SPRING_DATA_REDIS_PORT:6379}
       timeout: 2000ms
   application:
-    name: booking-service # Важно для Zipkin, чтобы понимать, кто отправил спан
+    name: catalog-service
+  datasource:
+    url: jdbc:postgresql://localhost:5440/catalog_db  # МЕНЯЕМ ЗДЕСЬ
+    username: catalog_login
+    password: catalog_password
+
   kafka:
     # ЭТО ТО, ЧТО СОХРАНИТ ТЕБЕ ЧАСЫ ДЕБАГА!
     template:
       observation-enabled: true # Для Producer (отправка в топик)
     listener:
       observation-enabled: true # Для Consumer (чтение из топика)
-  datasource:
-    url: jdbc:postgresql://localhost:5433/booking_db
-    username: postgres
-    password: postgres
   jpa:
     hibernate:
       ddl-auto: validate # ТОЛЬКО validate! Flyway создает, Hibernate проверяет.
@@ -37,7 +37,8 @@ management:
       probability: 1.0 # На dev-окружении пишем 100% трейсов
   zipkin:
     tracing:
-      endpoint: http://localhost:9411/api/v2/spans
+      # То же самое для Zipkin (в докере он enterprise_zipkin, локально — localhost)
+      endpoint: ${SPRING_ZIPKIN_TRACING_ENDPOINT:http://localhost:9411/api/v2/spans}
 
 server:
   port: 8081

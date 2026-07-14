@@ -13,5 +13,6 @@ public record EventResponse(
         Integer durationMinutes,
         Integer availableSeats,
         BigDecimal basePrice,
-        String status
+        String status,
+        VenueSmallResponse venue
 ) {}

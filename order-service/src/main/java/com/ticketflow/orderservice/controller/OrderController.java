@@ -1,7 +1,10 @@
 package com.ticketflow.orderservice.controller;
 
-import com.ticketflow.contracts.events.TicketPurchasedEvent; // Импорт из contracts!
-import org.springframework.web.bind.annotation.*;
+import com.ticketflow.contracts.events.TicketPurchasedEvent;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.math.BigDecimal;
 import java.util.UUID;
 

@@ -1,15 +1,17 @@
 package com.ticketflow.catalog.entity;
+
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
 
 @Entity
 @Table(name = "events")
-@SQLDelete(sql = "UPDATE events SET deleted_at = NOW() WHERE id = ?")
+@SQLDelete(sql = "UPDATE events SET deleted_at = CURRENT_TIMESTAMP WHERE id = ? AND version = ?")
 @SQLRestriction("deleted_at IS NULL")
 
 @Getter
@@ -33,10 +35,9 @@ public class Event {
     private String imageUrl;
     private String genre;
 
-    @Column(name = "venue_id", nullable = false)
-    private UUID venueId;
-
-    private String address;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "venue_id", nullable = false, foreignKey = @ForeignKey(name = "fk_events_venue"))
+    private Venue venue;
 
     @Column(name = "start_time", nullable = false)
     private Instant startTime;

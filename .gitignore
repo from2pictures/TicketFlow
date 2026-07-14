@@ -1,0 +1,128 @@
+# ============================================
+# 1. BUILD OUTPUTS (Собранные артефакты)
+# ============================================
+# Maven
+target/
+*.jar
+*.war
+*.ear
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Gradle (если используешь)
+build/
+.gradle/
+gradle-app.setting
+
+# ============================================
+# 2. IDE FILES (Настройки IDE - ЛИЧНЫЕ!)
+# ============================================
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+
+# ============================================
+# 3. OS FILES (Системные файлы)
+# ============================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+
+# ============================================
+# 4. LOGS & TEMP FILES
+# ============================================
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+hs_err_pid*
+replay_pid*
+
+# ============================================
+# 5. ENVIRONMENT & SECRETS (ОЧЕНЬ ВАЖНО!)
+# ============================================
+.env
+.env.local
+.env.*.local
+*.env
+application-local.yml
+application-prod.yml
+*-secret.yml
+secrets/
+
+# ============================================
+# 6. DOCKER (зависит от проекта)
+# ============================================
+# Оставляем docker-compose.yml и Dockerfile!
+# Игнорируем только volumes с данными:
+docker-data/
+postgres-data/
+
+# ============================================
+# 7. MAVEN WRAPPER (на твой выбор)
+# ============================================
+# Раскомментируй, если НЕ хочешь коммитить wrapper:
+# .mvn/wrapper/maven-wrapper.jar
+
+# ============================================
+# 8. JAVA SPECIFIC
+# ============================================
+*.class
+
+# Package Files
+*.jar.pack.gz
+
+# Virtual machine crash logs
+java_pid*
+
+# ============================================
+# 9. TEST REPORTS
+# ============================================
+**/target/surefire-reports/
+**/target/failsafe-reports/
+**/target/site/
+**/target/jacoco.exec
+
+# ============================================
+# 10. DATABASE FILES (если локальные)
+# ============================================
+*.db
+*.sqlite
+*.sqlite3

@@ -7,18 +7,18 @@ import java.util.UUID;
 
 public record CreateBookingRequest(
 
-        @NotBlank(message = "userId обязателен")
+        @NotNull(message = "userId обязателен")
         UUID userId,
 
-        @NotBlank(message = "eventId обязателен")
+        @NotNull(message = "eventId обязателен")
         UUID eventId,
 
-        @NotBlank(message = "quantity обязателен")
+        @NotNull(message = "quantity обязателен")
         @Min(value = 1, message = "quantity должен быть не меньше 1")
         @Max(value = 20, message = "quantity не может быть больше 20")
         Integer quantity,
 
-        @NotBlank(message = "unitPrice обязателен")
+        @NotNull(message = "unitPrice обязателен")
         @DecimalMin(value = "0.01", message = "unitPrice должен быть больше 0")
         @Digits(
                 integer = 8,

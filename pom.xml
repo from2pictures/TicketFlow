@@ -15,12 +15,15 @@
     <modules>
         <module>ticketflow-contracts</module>
         <module>catalog</module>
+        <module>booking</module>
+        <module>payment</module>
     </modules>
 
     <properties>
         <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.boot.version>4.1.0</spring.boot.version>
+        <spring.cloud.version>2025.1.2</spring.cloud.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <springdoc.version>3.0.3</springdoc.version>
         <github.resilience4j.version>2.3.0</github.resilience4j.version>
@@ -28,6 +31,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -83,7 +93,7 @@
                     <version>3.13.0</version>
                     <configuration>
                         <release>${java.version}</release>
-                        <parameters>true</parameters>  <!-- ← Для всех модулей -->
+                        <parameters>true</parameters>
                     </configuration>
                 </plugin>
             </plugins>

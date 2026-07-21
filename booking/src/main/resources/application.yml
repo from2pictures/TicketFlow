@@ -1,39 +1,65 @@
-spring:
-  application:
-    name: booking-service
-  datasource:
-    url: jdbc:postgresql://localhost:5437/booking_db  # МЕНЯЕМ ЗДЕСЬ
-    username: booking_login
-    password: booking_password
-
-  kafka:
-    # ЭТО ТО, ЧТО СОХРАНИТ ТЕБЕ ЧАСЫ ДЕБАГА!
-    template:
-      observation-enabled: true # Для Producer (отправка в топик)
-    listener:
-      observation-enabled: true # Для Consumer (чтение из топика)
-  jpa:
-    hibernate:
-      ddl-auto: validate # ТОЛЬКО validate! Flyway создает, Hibernate проверяет.
-    show-sql: true
-    open-in-view: on
-  flyway:
-    enabled: true
-    baseline-on-migrate: true
-    baseline-version: 1
-
-management:
-  tracing:
-    sampling:
-      probability: 1.0 # На dev-окружении пишем 100% трейсов
-  zipkin:
-    tracing:
-      # То же самое для Zipkin (в докере он enterprise_zipkin, локально — localhost)
-      endpoint: ${SPRING_ZIPKIN_TRACING_ENDPOINT:http://localhost:9411/api/v2/spans}
-
 server:
   port: 8082
 
 app:
+  payment-service:
+    url: http://localhost:8083
   outbox:
     poll-interval-ms: 2000
+
+
+spring:
+  application:
+    name: booking-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5437/booking_db
+    username: booking_login
+    password: booking_password
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+
+  kafka:
+    bootstrap-servers: localhost:9094
+    producer:
+      acks: all
+      retries: 3
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+      client:
+        config:
+          paymentService:
+            connect-timeout: 1000
+            read-timeout: 2000
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,circuitbreakers
+  health:
+    circuitbreakers:
+      enabled: true
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      paymentService:
+        register-health-indicator: true
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 10        # окно из последних 10 вызовов
+        minimum-number-of-calls: 5     # статистику считаем минимум с 5 вызовов
+        failure-rate-threshold: 50     # 50% ошибок → breaker РАЗМЫКАЕТСЯ
+        wait-duration-in-open-state: 10s
+        permitted-number-of-calls-in-half-open-state: 3
+        automatic-transition-from-open-to-half-open-enabled: true

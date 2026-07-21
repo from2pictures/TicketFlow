@@ -34,17 +34,17 @@ public class EventController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Получить концерт по ID")
-    @ApiResponse(responseCode = "200", description = "Концерт найден")
-    @ApiResponse(responseCode = "404", description = "Концерт не найден")
+    @Operation(summary = "Получить мероприятие по ID")
+    @ApiResponse(responseCode = "200", description = "Мероприятие найдено")
+    @ApiResponse(responseCode = "404", description = "Мероприятие не найдено")
     public ResponseEntity<EventResponse> getById(
             @Parameter(description = "UUID концерта") @PathVariable("id") UUID id) {
         return ResponseEntity.ok(service.getById(id));
     }
 
     @PostMapping
-    @Operation(summary = "Создать новый концерт")
-    @ApiResponse(responseCode = "201", description = "Концерт создан")
+    @Operation(summary = "Создать новое мероприятие")
+    @ApiResponse(responseCode = "201", description = "Мероприятие создано")
     public ResponseEntity<EventResponse> create(
             @Valid @RequestBody CreateEventRequest request) {
         EventResponse created = service.create(request);

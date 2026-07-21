@@ -7,6 +7,8 @@
     <file url="file://$PROJECT_DIR$/catalog/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/order-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/order-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ticketflow-contracts/src/main/java" charset="UTF-8" />

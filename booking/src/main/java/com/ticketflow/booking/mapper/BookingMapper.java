@@ -2,6 +2,7 @@ package com.ticketflow.booking.mapper;
 
 import com.ticketflow.booking.entity.Booking;
 import com.ticketflow.contracts.dto.request.CreateBookingRequest;
+import com.ticketflow.contracts.dto.response.BookingResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -17,5 +18,5 @@ public interface BookingMapper {
     @Mapping(target = "version", ignore = true)
     Booking toEntity(CreateBookingRequest request);
 
-
+    BookingResponse toResponse(Booking booking);
 }

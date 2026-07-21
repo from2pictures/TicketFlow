@@ -17,11 +17,11 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(
-        name = "outbox_events",
-        indexes = {
-                @Index(name = "idx_outbox_status_created", columnList = "status, created_at"),
-                @Index(name = "idx_outbox_aggregate", columnList = "aggregate_id, aggregate_type")
-        }
+    name = "outbox_events",
+    indexes = {
+            @Index(name = "idx_outbox_status_created", columnList = "status, created_at"),
+            @Index(name = "idx_outbox_aggregate", columnList = "aggregate_id, aggregate_type")
+    }
 )
 public class OutboxEvent {
 
@@ -59,18 +59,16 @@ public class OutboxEvent {
     @Column(name = "published_at")
     private Instant publishedAt;
 
-    public static OutboxEvent create(
-            UUID aggregateId,
-            String aggregateType,
-            String eventType,
-            String payload) {
-        OutboxEvent event = new OutboxEvent();
-        event.id = UUID.randomUUID();
-        event.aggregateId = aggregateId;
-        event.aggregateType = aggregateType;
-        event.eventType = eventType;
-        event.payload = payload;
-        event.status = EventStatus.PENDING;
-        return event;
+    public void markPublished() {
+        this.status = EventStatus.PUBLISHED;
+        this.publishedAt = Instant.now();
+    }
+
+    public void markFailed(String error) {
+        this.retryCount++;
+        this.lastError = error;
+        if (this.retryCount >= 5) {
+            this.status = EventStatus.FAILED;
+        }
     }
 }

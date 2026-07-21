@@ -33,3 +33,7 @@ management:
 
 server:
   port: 8082
+
+app:
+  outbox:
+    poll-interval-ms: 2000

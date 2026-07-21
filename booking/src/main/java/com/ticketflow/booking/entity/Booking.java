@@ -14,12 +14,12 @@ import java.util.UUID;
 
 @Entity
 @Table(
-        name = "bookings",
-        indexes = {
-                @Index(name = "idx_bookings_user_id", columnList = "user_id"),
-                @Index(name = "idx_bookings_event_id", columnList = "event_id"),
-                @Index(name = "idx_bookings_status", columnList = "status")
-        }
+    name = "bookings",
+    indexes = {
+            @Index(name = "idx_bookings_user_id", columnList = "user_id"),
+            @Index(name = "idx_bookings_event_id", columnList = "event_id"),
+            @Index(name = "idx_bookings_status", columnList = "status")
+    }
 )
 @AllArgsConstructor
 @NoArgsConstructor
